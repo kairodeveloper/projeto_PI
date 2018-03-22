@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="pt">
+<head>
+    <!--Inportações-->
+    {% include "importacoes.html" %}
+    <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+    <!--Fim importações-->
+    <meta charset="UTF-8">
+    <title>AEMTKD | {{perfil.nome|capfirst}}</title>
+</head>
+<body>
+        <div class="row hide-on-med-and-down" id="menu_top_bar">
+            <div class="col l2 xl3"></div>
+
+            {% if perfil %}
+
+                <ul id="dropdown2" class="dropdown-content">
+                    <li><a href="logout" class="black-text">Sair</a></li>
+                </ul>
+                <nav class="black">
+                    <div class="nav-wrapper black container">
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="{% url 'home' %}">Página inicial</a></li>
+                            <li><a class="dropdown-button" href="#!" data-activates="dropdown2">{{perfil.nome|capfirst}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            {% endif %}
+    </div>
+
+    <div class="row container hide-on-med-and-down">
+
+        <div class="col l3 xl3" id="div_left">
+
+            <img class="z-depth-1" id="perfil_user" src="{% static 'imagens/perfil.jpg' %}">
+
+            <p id="titulo_perfil">{{perfil.nome}}</p>
+            <p id="faixa_perfil">{{perfil.faixa}}</p>
+            <p id="aniversario_perfil">{{perfil.aniversario}}</p>
+            <a href=""><i class="right grey-text material-icons">create</i></a>
+
+        </div>
+
+        <div class="col l9 xl9 row">
+
+            <div id="div_menu_opcao" class="col l12 xl12 row">
+
+                <ul id="menu_opcao">
+
+                    <a href="{% url 'perfil' %}"><li class="opcao">Notícias</li></a>
+                    <a href=""><li class="opcao atual">Eventos</li></a>
+                    <a href=""><li class="opcao">Atletas</li></a>
+                    <a href=""><li class="opcao">Albúns</li></a>
+
+                </ul>
+
+                <div style="padding-top: 40px;" class="col l8 xl8">
+
+                    <nav class="z-depth-0" style="border-bottom:1px solid #AFAFAF;">
+                        <div class="nav-wrapper white z-depth-0">
+                            <form>
+                                <div class="input-field">
+                                    <input id="search" type="search" placeholder="Buscar eventos..." required>
+                                    <label class="label-icon" for="search">
+                                        <i class="grey-text material-icons">search</i></label>
+                                    <i class="material-icons">close</i>
+                                </div>
+                            </form>
+                        </div>
+                    </nav>
+
+                </div>
+
+                <div style="padding-top: 40px;" class="col l4 xl4">
+
+                    <a class="btn-floating btn-large waves-effect waves-light right red" href="{% url 'add_evento' %}">
+                        <i class="material-icons">add</i>
+                    </a>
+
+                </div>
+
+                    <div class="col l12 xl12" style="font-size: 16px; margin-top: 40px; border-top: 2px solid #AFAFAF; padding:0px; padding-top:40px;">
+
+                        {% with total=eventos.count %}
+                            {% if total %}
+
+
+                                {% for evento in eventos reversed %}
+                                    <div class="col l12 xl12">
+                                        <h2 class="header">{{evento.titulo}}</h2>
+                                        <div class="card horizontal">
+                                            <div class="card-image">
+                                                <img src="media/{{evento.img_principal}}">
+                                            </div>
+                                            <div class="card-stacked">
+                                                <div class="card-content">
+                                                    <p class="black-text" style="font-size: 24px; text-align: justify;">{{evento.descricao | truncatechars:100}}</p>
+                                                    <p class="grey-text" style="font-size: 16px; text-align: justify;">Data do evento: {{evento.get_data}}</p>
+                                                    <p class="grey-text" style="font-size: 16px; text-align: justify;">Hora do evento: {{evento.get_hora}}</p>
+                                                </div>
+                                                <div class="card-action">
+                                                    <a style="font-size: 14px;" href="{% url 'evento' evento.id %}">LER MAIS</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <p style="font-size: 20px; text-align:center;">Ainda não existe nenhum evento cadastrado!</p>
+
+                            {% endif %}
+                        {% endwith %}
+
+                    </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>
+</html>

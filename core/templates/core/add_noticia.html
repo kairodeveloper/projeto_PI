@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="pt">
+<head>
+    <!--Inportações-->
+    {% include "importacoes.html" %}
+    <link rel="stylesheet" href="{% static 'css/add_noticia.css' %}">
+    <!--Fim importações-->
+    <meta charset="UTF-8">
+    <title>AEMTKD | {{perfil.nome|capfirst}}</title>
+</head>
+<body>
+        <div class="row hide-on-med-and-down" id="menu_top_bar">
+            <div class="col l2 xl3"></div>
+
+            {% if perfil %}
+
+                <ul id="dropdown2" class="dropdown-content">
+                    <li><a href="{% url 'logout' %}" class="black-text">Sair</a></li>
+                </ul>
+                <nav class="black">
+                    <div class="nav-wrapper black container">
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="{% url 'home' %}">Página inicial</a></li>
+                            <li><a class="dropdown-button" href="#!" data-activates="dropdown2">{{perfil.nome|capfirst}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            {% endif %}
+        </div>
+
+        <div class="container row" style="border-bottom: 1px solid #000;">
+            <a href="#!" id="title_add_new" class="breadcrumb black-text">{{funcao}}</a>
+
+        </div>
+
+        {% if error %}
+            <p class="center-align">Esse título já existe!</p>
+        {% else %}
+            <p class="center-align"></p>
+        {% endif %}
+
+        <div id="div_formulario" class="row">
+            <form class="container" method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                {% if noticia %}
+                    {% with titulo=noticia.titulo %}
+                        <div class="input-field col l6 xl6 no-padding">
+                            <input id="titulo" type="text" name="titulo" value="{{titulo}}" class="validate" required autofocus>
+                            <label for="titulo" max-length="100">Título</label>
+                        </div>
+                    {% endwith %}
+
+                    <div class="file-field input-field col l6 xl6">
+                        <div class="btn black">
+                            <i class="material-icons right">file_upload</i>
+                            <span>Enviar capa</span>
+                            <input type="file" name="image" required>
+                        </div>
+                            <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="input-field col l12 xl12">
+                            <textarea name="primeiro" data-length="1000" class="materialize-textarea">{{noticia.primeiro_paragrafo}}</textarea>
+                            <label for="textarea1" name="segundo">Primeiro parágrafo</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                       <div class="input-field col l12 xl12">
+                            <textarea name="segundo" data-length="1000" class="materialize-textarea">{{noticia.segundo_paragrafo}}</textarea>
+                            <label for="textarea2" name="segundo">Segundo parágrafo</label>
+                        </div>
+                    </div>
+                    <div class="input-field col l12 xl12 no-padding">
+                        <input id="final" type="text" name="final" value="{{noticia.consideracao_final}}" class="validate">
+                        <label for="final" max-length="100">Frase final</label>
+                    </div>
+
+                    <button class="btn waves-effect waves-light green darken-4 right" onclick="Materialize.toast('Salvo!', 4000)" type="submit" name="action">Salvar
+                    <i class="material-icons right">send</i>
+                    </button>
+
+zz                    <a class="waves-effect waves-light btn right red darken-4" style="margin-right: 1%;" href="{% url 'noticia' noticia.id %}"><i class="material-icons left">cancel</i>Cancelar</a>
+
+
+                {% else %}
+
+                    <div class="input-field col l6 xl6 no-padding">
+                        <input id="titulo" type="text" name="titulo" class="validate" required autofocus>
+                        <label for="titulo" max-length="100">Título</label>
+                    </div>
+
+                    <div class="file-field input-field col l6 xl6">
+                        <div class="btn black">
+                            <i class="material-icons right">file_upload</i>
+                            <span>Enviar capa</span>
+                            <input type="file" name="image" required>
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col l12 xl12">
+                            <textarea id="textarea1" data-length="1000" name="primeiro" class="materialize-textarea" required></textarea>
+                            <label for="textarea1">Primeiro parágrafo</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col l12 xl12">
+                            <textarea id="textarea2" name="segundo" class="materialize-textarea"></textarea>
+                            <label for="textarea2" name="segundo">Segundo parágrafo</label>
+                        </div>
+                    </div>
+                    <div class="input-field col l12 xl12 no-padding">
+                        <input id="final" type="text" name="final" class="validate">
+                        <label for="final" max-length="100">Frase final</label>
+                    </div>
+
+                    <button class="btn waves-effect waves-light green darken-4 right" onclick="Materialize.toast('Salvo!', 4000)" type="submit" name="action">Salvar
+                        <i class="material-icons right">send</i>
+
+                    </button>
+                    <a class="waves-effect waves-light btn right red darken-4" style="margin-right: 1%;" href="{% url 'perfil' %}"><i class="material-icons left">cancel</i>Cancelar</a>
+
+                {% endif %}
+
+            </form>
+
+
+        </div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="pt">
+<head>
+    <!--Inportações-->
+    {% include "importacoes.html" %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <!--Fim importações-->
+    <meta charset="UTF-8">
+    <title>AEMTKD | Seja bem-vindo</title>
+
+    <script>
+    $(document).ready(function(){
+    $('.slider').slider();
+    $('.button-collapse').sideNav({
+        menuWidth: 600, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      draggable: true, // Choose whether you can drag to open on touch screens,
+    });
+    $('.dropdown-button').dropdown();
+    $('.carousel').carousel();
+
+});</script>
+
+</head>
+<body>
+    <!--Site home desktop-->
+    <div class="row hide-on-med-and-down z-depth-5" id="menu_top_bar">
+        <div class="col l2 xl3"></div>
+
+        {% if perfil %}
+
+            {% if perfil.permissao.is_admin %}
+
+                <ul id="dropdown2" class="dropdown-content">
+                    <li><a href="membros" class="black-text">Administrar membros</a></li>
+                    <li><a href="{% url 'add_evento' %}" class="black-text">Adicionar eventos</a></li>
+                    <li><a href="{% url 'add_noticia' %}" class="black-text">Administrar notícias</a></li>
+                    <li><a href="#!" class="black-text">Administrar álbums</a></li>
+                    <li class="divider"></li>
+                    <li><a href = "{% url 'perfil' %}" class="black-text">{{perfil.nome|capfirst}}</a></li>
+                    <li><a href="{% url 'logout' %}" class="black-text">Sair</a></li>
+                </ul>
+
+            {% else %}
+
+                <ul id="dropdown2" class="dropdown-content">
+                    <li><a href="{% url 'logout' %}" class="black-text">Sair</a></li>
+                </ul>
+
+            {% endif %}
+                <nav class="black">
+                    <div class="nav-wrapper black container">
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="#">Onde treinar</a></li>
+                            <li><a href="#">Sobre o Taekwondo</a></li>
+                            <li><a href="#">Quem somos</a></li>
+                            <!-- Dropdown Trigger -->
+                            <li><a class="dropdown-button" href="#!" data-activates="dropdown2">{{perfil.nome|capfirst}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                            <li><a target="_Blank" href="https://www.instagram.com/aemtkd/"><i><img class="icons_redes_sociais" id="icon_insta" src="{% static 'imagens/home/insta.png' %}"></i></a></li>
+                            <li><a target="_Blank" href="https://www.facebook.com/aemtaekwondo"><i><img class="icons_redes_sociais" id="icon_fb" src="{% static 'imagens/home/fb.png' %}"></i></a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+
+        {% else %}
+            <nav class="black">
+                <div class="nav-wrapper black container">
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="sass.html">Onde treinar</a></li>
+                        <li><a href="badges.html">Sobre o Taekwondo</a></li>
+                        <li><a href="badges.html">Quem somos</a></li>
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a target="_Blank" href="https://www.instagram.com/aemtkd/"><i><img class="icons_redes_sociais" id="icon_insta" src="{% static 'imagens/home/insta.png' %}"></i></a></li>
+                        <li><a target="_Blank" href="https://www.facebook.com/aemtaekwondo"><i><img class="icons_redes_sociais" id="icon_fb" src="{% static 'imagens/home/fb.png' %}"></i></a></li>
+                    </ul>
+                </div>
+            </nav>
+        {% endif %}
+    </div>
+
+    <div class="row z-depth-3 no-padding" id="second_menu_top_bar">
+
+        <div class="col l2 xl2"></div>
+
+        <div class="col l2 xl2  no-padding" style="height:100%;">
+
+            <img style="height: 100%;" src="{% static 'imagens/aemtkd.jpg' %}">
+
+        </div>
+
+        <div class="col l1 xl1"></div>
+
+        <div class="col l5 xl5" style="height:100%;">
+
+            <nav class="nav-wrapper z-depth-0" style="margin-top: 5%; background-color: #B22222;">
+                <div class="nav-wrapper">
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="#">Eventos</a></li>
+                        <li><a href="#">Notícias</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+
+        </div>
+
+        <div class="col l1 xl1"></div>
+
+
+    </div>
+    <!--Fim do desktop-->
+    <nav class="valign-wrapper z-depth-0 grey" style=" margin-top: 40px;">
+        <div class="container"><h4>ULTIMAS NOTÍCIAS</h4></div>
+    </nav>
+
+    <div class="slider">
+
+        {% if recentes %}
+            <ul class="slides fadeIn">
+                {% for noticia in recentes %}
+                    <li>
+                        <img src="/media/{{noticia.capa_noticia}}"> <!-- random image -->
+                        <div class="container caption center-align">
+                            <h3 class="hide-on-med-and-down">{{noticia.titulo}}</h3>
+                            <h5 class="hide-on-med-and-down light grey-text text-lighten-3">{{noticia.primeiro_paragrafo |truncatechars:10}}</h5>
+                            <a href="{% url 'noticia' noticia.id %}"><button class="hide-on-med-and-down btn_slide_desktop">LEIA MAIS</button></a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="center-align">Nenhuma notícia cadastrada :(</p>
+        {% endif %}
+    </div>
+
+     <div class="col l12 xl12">
+
+            <nav class="valign-wrapper z-depth-0 grey" style=" margin-top: 40px;">
+                <div class="container"><h4>PRÓXIMOS EVENTOS</h4></div>
+            </nav>
+            {%  if eventos %}
+
+            <div class="carousel">
+                {% for evento in eventos %}
+                    <a class="carousel-item" href="{% url 'evento' evento.id %}"><img src="media/{{evento.img_principal}}"></a>
+                {% endfor %}
+            </div>
+
+
+
+        {% else %}
+
+            <p>Nenhum evento encontrado :(</p>
+
+        {% endif %}
+
+    </div>
+
+    <!--Site home tablets e smartphones-->
+    <!--Fim do smartphone-->
+</body>
+</html>

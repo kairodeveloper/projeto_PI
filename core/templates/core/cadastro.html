@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="pt">
+<head>
+    <!--Inportações-->
+    {% include "importacoes.html" %}
+    <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+    <script src="{% static 'js/login.js' %}"></script>
+    <!--Fim importações-->
+    <meta charset="UTF-8">
+    <title>AEMTKD | Cadastro</title>
+</head>
+<body>
+
+    <div class="valign-wrapper hide-on-med-and-down" id="conteudo">
+        <div class="row z-depth-5" id="menu_top_bar">
+
+            <div class="col l2 xl2"></div>
+
+            <div class="col l8 xl8">
+
+                <img id="logo_aemtkd" src="{% static 'imagens/aemtkd.jpg' %}">
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <h2 class="center-align">CADASTRO</h2>
+
+                    {% if error %}
+                        <p class="center-align">{{error}}</p>
+                    {% endif %}
+
+                    <select name="faixa">
+                        <option value="10" selected>FAIXA BRANCA</option>
+                        <option value="8">AMARELA</option>
+                        <option value="7">PONTEIRA VERDE</option>
+                        <option value="6">VERDE</option>
+                        <option value="5">PONTEIRA AZUL</option>
+                        <option value="4">AZUL</option>
+                        <option value="3">PONTEIRA VERMELHA</option>
+                        <option value="2">VERMELHA</option>
+                        <option value="1">PONTEIRA PRETA</option>
+                        <option value="0">FAIXA PRETA</option>
+                    </select>
+                    <label>Faixa</label>
+
+                    <input name="nome" placeholder="Nome completo" type="text" required autofocus>
+                    <input name="username" placeholder="Username" type="text" required>
+                    <input name="email" placeholder="Email" type="email" required>
+                    <input name="password" placeholder="Senha" type="password" required>
+                    <input name="telefone" placeholder="Telefone" maxlength="11" data-length="11" type="number" required>
+                    <input name="data_nasc" placeholder="Data de nascimento" type="date" required>
+                    <input name="chave_acesso" placeholder="Chave de acesso" maxlength="5" data-length="5" type="text" required>
+
+
+                    <button class="waves-effect waves-light btn light-green darken-4" id="btn_submit" value="Login" type="submit">CADASTRAR</button>
+
+                    <p class="center-align"><a href="login">Login</a></p>
+                    <p class="center-align"><a href="home">Voltar para a página inicial</a></p>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        </div>
+    </div>
+
+
+</body>
+</html>

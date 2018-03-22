@@ -1,0 +1,80 @@
+html, body{
+	height: 100%;
+	background-image: url('../imagens/login/tkd_fundo.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-clip: border-box;
+}
+
+@media screen and (min-width: 990px) {
+    #conteudo{
+    height:100%;
+    width: 100%;
+    }
+
+    #menu_top_bar{
+        background-color: #FFF;
+        height: 70%;
+        width: 40%;
+    }
+
+    #logo_aemtkd{
+        height:auto;
+        width: 100px;
+        margin: auto;
+        display: block;
+        margin-top: 10%;
+    }
+
+    #btn_submit{
+        width: 100%;
+        margin-left: 0%;
+        margin-top: 5%;
+    }
+
+}
+
+@media screen and (min-width: 1300px) {
+    #conteudo{
+        height:100%;
+        width: 100%;
+    }
+
+    #menu_top_bar{
+        background-color: #FFF;
+        height: 70%;
+        width: 30%;
+    }
+
+    #logo_aemtkd{
+        height:auto;
+        width: 100px;
+        margin: auto;
+        display: block;
+        margin-top: 10%;
+    }
+
+    #btn_submit{
+        width: 100%;
+        margin-left: 0%;
+        margin-top: 5%;
+    }
+
+}
+
+
+::-webkit-input-placeholder {
+   color: #696969;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #696969;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #696969;
+}
+
+:-ms-input-placeholder {
+   color: #696969;
+}

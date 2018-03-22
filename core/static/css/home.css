@@ -1,0 +1,65 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+/*Classes*/
+.opcao_menu_top_bar{
+    margin-top:0px;
+    background-color: #000;
+    height: 40px;
+    padding:0 2% 0 2%;
+    width:auto;
+    font-size: 16px;
+    line-height:40px;
+    color: #FFF;
+    text-align: center;
+    display:inline-block;
+}
+
+.opcao_menu_top_bar:hover{
+    background-color:#333;
+    color:#CCC;
+    cursor:pointer;
+}
+
+.icons_redes_sociais{
+    height:25px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.icons_redes_sociais{
+    cursor: pointer;
+}
+
+.lista_de_opcoes_menu_top_bar li{
+    display: inline-block;
+    width:auto;
+}
+
+.ultima_opcao{
+    margin-right:1%;
+}
+
+
+
+
+/*IDs*/
+
+#icon_fb{
+    float:right;
+    margin-right: 10%;
+}
+
+#icon_insta{
+    float: right;
+}
+
+#second_menu_top_bar{
+    height:150px;
+    margin-top:-21px;
+    background-color: #B22222;
+}
+

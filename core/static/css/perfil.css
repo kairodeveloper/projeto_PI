@@ -1,0 +1,88 @@
+*{
+    padding: 0px;
+    font-size: 0px;
+    margin:0px;
+}
+
+.icons_redes_sociais{
+    height:25px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.icons_redes_sociais{
+    cursor: pointer;
+}
+
+#icon_fb{
+    float:right;
+}
+
+#icon_insta{
+    float: right;
+}
+
+#perfil_user{
+    width: 100%;
+    margin: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+#titulo_perfil{
+    font-size: 32px;
+    padding:0px;
+    font-weight: bold;
+}
+
+#faixa_perfil{
+    font-size: 24px;
+    padding:0px;
+    color: #666;
+}
+
+#aniversario_perfil{
+    font-size:16px;
+    padding:0px;
+    color: #666;
+}
+
+#div_left{
+    border-bottom: 1px solid #AFAFAF;
+    padding: 0px;
+    padding-bottom: 20px;
+}
+
+#div_menu_opcao{
+    height: 75px;
+    border-bottom:1px solid #AFAFAF;
+}
+
+.opcao{
+    font-size: 16px;
+    color: #000;
+    display: inline-block;
+    width: 23%;
+    text-align: center;
+    line-height: 75px;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+.opcao:hover{
+    border-bottom: 3px solid #AFAFAF;
+}
+
+.atual{
+    border-bottom: 3px solid #B22222;
+}
+
+.atual:hover{
+    border-bottom: 3px solid #B22222;
+}
+
+.card_noticia{
+    height: 300px;
+}
+

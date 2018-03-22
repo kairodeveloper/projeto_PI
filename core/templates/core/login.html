@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="pt">
+<head>
+    <!--Inportações-->
+    {% include "importacoes.html" %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <script src="{% static 'js/login.js' %}"></script>
+    <!--Fim importações-->
+    <meta charset="UTF-8">
+    <title>AEMTKD | Login</title>
+</head>
+<body>
+
+    <div class="valign-wrapper hide-on-med-and-down" id="conteudo">
+        <div class="row z-depth-5" id="menu_top_bar">
+
+            <div class="col l2 xl3"></div>
+
+            <div class="col l8 xl6">
+
+                <img id="logo_aemtkd" src="{% static 'imagens/aemtkd.jpg' %}">
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <h2 class="center-align">LOGIN</h2>
+
+                    {% if error %}
+                        <p class="center-align">{{error}}</p>
+                    {% endif %}
+
+
+                    <input name="username" placeholder="Username" type="text" required autofocus>
+                    <input name="password" placeholder="Senha" type="password" required>
+
+                    <button class="waves-effect waves-light btn light-green darken-4" id="btn_submit" value="Login" type="submit">ENTRAR</button>
+
+                    <p class="center-align"><a href="cadastro">Cadastre-se</a></p>
+                    <p class="center-align"><a href="home">Voltar para a página inicial</a></p>
+                    <p class="center-align"><a href="esqueci">Esqueci minha senha</a></p>
+
+                </form>
+
+            </div>
+
+            <div class="col l2 xl3"></div>
+
+
+        </div>
+
+        </div>
+    </div>
+
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Área restrita</h4>
+            <p>Essa área se restringe somente a integrantes da AEMTKD</p>
+        </div>
+        <div class="modal-footer">
+            <a href="home" class="modal-action modal-close waves-effect red-text waves-green btn-flat">Tire-me daqui!</a>
+            <a href="#" class="modal-action modal-close waves-effect green-text waves-green btn-flat">Entendido</a>
+        </div>
+    </div>
+
+</body>
+</html>

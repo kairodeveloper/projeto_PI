@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="pt">
+<head>
+    <!--Inportações-->
+    {% include "importacoes.html" %}
+    <link rel="stylesheet" href="{% static 'css/.css' %}">
+    <!--Fim importações-->
+    <meta charset="UTF-8">
+    <title>AEMTKD | {{noticia.titulo}}</title>
+
+    <script>
+
+        $(document).ready(function(){
+            // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal();
+        });
+
+    </script>
+
+</head>
+<body>
+        <div class="row hide-on-med-and-down" id="menu_top_bar">
+            <div class="col l2 xl3"></div>
+
+            {% if perfil %}
+
+                <ul id="dropdown2" class="dropdown-content">
+                    <li><a href="logout" class="black-text">Sair</a></li>
+                </ul>
+                <nav class="black">
+                    <div class="nav-wrapper black container">
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="{% url 'home' %}">Página inicial</a></li>
+                            <li><a class="dropdown-button" href="#!" data-activates="dropdown2">{{perfil.nome|capfirst}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            {% else %}
+                <nav class="black">
+                    <div class="nav-wrapper black container">
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="{% url 'home' %}">Página inicial</a></li>
+                            <li><a class="dropdown-button" href="{% url 'login' %}" data-activates="dropdown2">Login</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+            {% endif %}
+    </div>
+
+    <div class="row container hide-on-med-and-down">
+
+
+    {% if noticia %}
+
+        <div class="conteudo_noticia col l12 xl12 row">
+            <h2 class="center-align">{{noticia.titulo}}</h2>
+
+            <div class="col l4 xl4">
+
+                <a href="{% url 'home' %}"><p style="font-size:16px;" class="left">< Retornar para a página inicial</p></a>
+
+            </div>
+
+            <div class="col l4 xl4">
+
+                <p style="font-size:16px;" class="center-align">Por <a style="font-size:16px" href="">{{noticia.autor.nome|capfirst}}</a> em {{noticia.get_data}}</p>
+
+            </div>
+
+            <div class="col l4 xl4">
+
+                {% if is_same %}
+                    <!-- Modal Structure -->
+                    <div id="modal1" class="modal modal-fixed-footer">
+                        <div class="modal-content">
+                            <h4>Alerta de exclusão</h4>
+                            <p>Você deseja realmente excluir a notícia: {{noticia.titulo}}?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat green-text">NÃO, TIRE ME DAQUI</a>
+                            <a href="{% url 'delete_noticia' noticia.id %}" class="modal-action modal-close waves-effect waves-green btn-flat red-text">SIM, EXCLUIR</a>
+                        </div>
+                    </div>
+
+
+                    <a class="modal-trigger" data-target="modal1" href="#modal1"><i class="right material-icons black-text">delete</i></a>
+                    <a href="{% url 'editar_noticia' noticia.id %}"><i class="right material-icons black-text">create</i></a>
+                {% endif %}
+
+            </div>
+
+            <div class="col l6 xl6" style=" margin-top: 40px;">
+                <img style="width: 100%;" src="/media/{{noticia.capa_noticia}}">
+            </div>
+            <div class="col l6 xl6" style=" margin-top: 40px;">
+                <p style="font-size:16px;  text-align:justify; line-height: 1.5;">{{noticia.primeiro_paragrafo}}</p>
+            </div>
+            <div class="col l12 xl12" style="margin-top: 40px;">
+                <p style="font-size:16px; text-align:justify; line-height: 1.5;">{{noticia.segundo_paragrafo}}</p>
+            </div>
+
+            <div class="col l12 xl12" style="margin-top: 40px">
+                <p style="font-size:16px;">{{noticia.consideracao_final}}</p>
+            </div>
+
+            <div class="col l12 xl12 white">
+
+                <nav class="valign-wrapper z-depth-0 grey" style="margin-top: 40px;"><h4>Comentários</h4></nav>
+
+                {% if comments %}
+                    {% for comment in comments %}
+
+                        <div class="col l9 xl9 grey lighten-2 black-text" style="height:auto; margin-top: 10px; border-radius:10px;">
+                            <p><a href="" class="grey-text darken-4">{{comment.autor.nome}}</a>: {{comment.comentario}}</p>
+                            <p>{{comment.get_data}}</p>
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    <p style="font-size: 16px; margin-top: 40px; color: #AFAFAF;">Esse post possui 0 comentários! :( </p>
+                {% endif %}
+
+                {% if perfil %}
+                    <div class="col l12 xl12 grey lighten-3" style="margin-top:40px; border-radius: 10px; padding:10px;">
+                        <form method="POST">
+
+                            {% csrf_token %}
+
+                            <div class="row">
+                                <div class="input-field col l12 xl12">
+                                    <input id="comentario" type="text" name="comment" class="validate" required>
+                                    <label for="comentario">Deixe seu comentário</label>
+                                </div>
+                            </div>
+
+                        <button class="btn waves-effect waves-light green darken-4 right" type="submit" name="action">Comentar
+                            <i class="material-icons right"></i>
+                        </button>
+
+
+                        </form>
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    {% else %}
+        <div class="conteudo_noticia col l12 xl12">
+            <p style="font-size: 20px; text-align:center;">:( Notícia não encontrada!</p>
+        </div>
+    {% endif %}
+
+    </div>
+
+
+
+</body>
+</html>
