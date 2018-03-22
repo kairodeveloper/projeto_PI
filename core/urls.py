@@ -21,5 +21,7 @@ urlpatterns = [
     url(r'^evento/editar/(?P<evento_id>[0-9]+)$', edit_evento, name='editar_evento'),
     url(r'^esqueci$', esqueci_senha, name='esqueci'),
     url(r'^redefinir', redefinir_senha, name='redefinir'),
+    url(r'^noticias$', todas_as_noticias, name='noticias'),
+    url(r'^eventos$', todos_os_eventos, name='eventos'),
 
 ]

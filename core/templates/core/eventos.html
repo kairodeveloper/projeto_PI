@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="pt">
+<head>
+    <!--Inportações-->
+    {% include "importacoes.html" %}
+    <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+    <!--Fim importações-->
+    <meta charset="UTF-8">
+    <title>AEMTKD | {{perfil.nome|capfirst}}</title>
+</head>
+<body>
+        <div class="row hide-on-med-and-down" id="menu_top_bar">
+            <div class="col l2 xl3"></div>
+
+            {% if perfil %}
+
+                <ul id="dropdown2" class="dropdown-content">
+                    <li><a href="logout" class="black-text">Sair</a></li>
+                </ul>
+                <nav class="black">
+                    <div class="nav-wrapper black container">
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="{% url 'home' %}">Página inicial</a></li>
+                            <li><a class="dropdown-button" href="#!" data-activates="dropdown2">{{perfil.nome|capfirst}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            {% else %}
+
+                <ul id="dropdown2" class="dropdown-content">
+                    <li><a href="logout" class="black-text">Sair</a></li>
+                </ul>
+                <nav class="black">
+                    <div class="nav-wrapper black container">
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="{% url 'home' %}">Página inicial</a></li>
+                            <li><a class="dropdown-button" href="{% url 'login' %}" data-activates="dropdown2">Login</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+            {% endif %}
+    </div>
+
+    <div class="container">
+        <nav class="valign-wrapper z-depth-0 grey" style=" margin-top: 40px;">
+            <div style="padding-left:10px;"><h4>EVENTOS</h4></div>
+        </nav>
+        {% if eventos %}
+            {% for evento in eventos reversed %}
+                <div class="col l12 xl12">
+                    <h2 class="header">{{evento.titulo}}</h2>
+                    <div class="card horizontal">
+                        <div class="card-image">
+                            <img src="media/{{evento.img_principal}}">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <p class="black-text" style="font-size: 24px; text-align: justify;">{{evento.descricao | truncatechars:100}}</p>
+                                <p class="grey-text" style="font-size: 16px; text-align: justify;">Data do evento: {{evento.get_data}}</p>
+                                <p class="grey-text" style="font-size: 16px; text-align: justify;">Hora do evento: {{evento.get_hora}}</p>
+                            </div>
+                            <div class="card-action">
+                                <a style="font-size: 14px;" href="{% url 'evento' evento.id %}">LER MAIS</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>Nenhum evento cadastrado :(</p>
+
+        {% endif %}
+
+
+    </div>
+
+</body>
+</html>

@@ -162,7 +162,7 @@ def edit_noticia(request, noticia_id):
     funcao = "Editar notícia"
     noticia = Noticia.objects.get(id=noticia_id)
 
-    if not perfil.permissao.is_admin:
+    if not get_perfil_logado(request).permissao.is_admin:
         return redirect('home')
 
     if request.method=='POST':
@@ -354,10 +354,35 @@ def esqueci_senha(request):
             user_exists = User.objects.filter(email=email).exists()
 
             if user_exists:
-                my_send_email('n','jn',email,'Clique no link abaixo, e sera redirecionado a uma pagina para a redefinir a sua senha')
+                send_email_redefinir('n', 'jn', email, 'Clique no link abaixo, e sera redirecionado a uma pagina para a redefinir a sua senha')
             return redirect('login')
 
     return render(request,'core/esqueci.html')
+
+
+def todas_as_noticias(request):
+
+    noticias = Noticia.objects.all()
+
+    if esta_logado(request):
+        perfil = get_perfil_logado(request)
+
+        return render(request,'core/noticias.html',{'perfil':perfil,'noticias':noticias})
+
+    return render(request,'core/noticias.html',{'noticias':noticias})
+
+def todos_os_eventos(request):
+
+    eventos = Evento.objects.all()
+
+    if esta_logado(request):
+        perfil = get_perfil_logado(request)
+
+        return render(request,'core/eventos.html',{'perfil':perfil,'eventos':eventos})
+
+    return render(request,'core/eventos.html',{'eventos':eventos})
+
+
 
 def redefinir_senha(request):
 
@@ -384,7 +409,26 @@ def is_null(field):
     return False
 
 
-def my_send_email(nome, email, destino, mensagem):
+def send_email_contato(destino, nome, mensagem):
+    import smtplib
+
+    remetente = 'site.centro.bdm.no.reply@gmail.com'
+    senha = 'gn2ps2k1997'
+
+    destinatario = destino
+    assunto = 'Contato'
+
+    texto = '\n'.join(
+        ['From: %s' % remetente, 'To: %s' % destinatario, 'Subject: %s' % assunto, '','Mensagem de %s' % nome ,'%s' % mensagem, '%s'])
+
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.starttls()
+    server.login(remetente, senha)
+    server.sendmail(remetente, destinatario, texto)
+    server.quit()
+
+
+def send_email_redefinir(destino, mensagem):
     import smtplib
 
     remetente = 'site.centro.bdm.no.reply@gmail.com'
